@@ -3,7 +3,7 @@ function cluster_11()
 tic; %time start
 
 k = 25;
-file_name = 'BigData_20140328_2356';
+file_name = 'BigData_20140319_2213';
 folder_name = strcat(file_name,'');
 mkdir(folder_name);
 
