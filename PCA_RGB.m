@@ -3,6 +3,7 @@ function matrix = PCA_RGB(mat)
     %sort_mat = sort_mat';
     %mat = mat';
     [eigenVector,score,eigenvalue,tsquare] = princomp(mat); 
+    %cumsum(eigenvalue)./sum(eigenvalue)
     k = 3;
     transMatrix(:,1:k) = eigenVector(:,1:k);
     matrix = mat * transMatrix;
