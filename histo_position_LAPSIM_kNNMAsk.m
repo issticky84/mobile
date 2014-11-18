@@ -1,4 +1,4 @@
-function LAP_1D = histo_position_LAPSIM(cluster_center,histo_mat,k)
+function LAP_1D = histo_position_LAPSIM_kNNMAsk(cluster_center,histo_mat,k)
     cluster_center_distance = zeros(k,k);
     for i=1:k
         for j=1:k
@@ -29,10 +29,22 @@ function LAP_1D = histo_position_LAPSIM(cluster_center,histo_mat,k)
            end
        end
     end
+    
+    Knn = 6;
+    N = size(histo_coefficient,1);
+    W = Mask_adjac_time (N, Knn);
+    for i=1:time_step
+       for j=1:time_step
+           if W(i,j)==1
+                histo_coefficient(i,j) = histo_coefficient(i,j)*10;
+           end
+       end
+    end    
     %csvwrite('histo_coeff.csv',histo_coefficient);
     %[Y,eigvals] = cmdscale(histo_coefficient);
     %MDS_1D = Y(:,1);
-    [E,V] = lapbin(histo_coefficient,1);
+    %[E,V] = lapbin(histo_coefficient,1);
+    [E,V] = lapsim(histo_coefficient,1);
     %[E,V] = lapheat(histo_coefficient,1);
     LAP_1D = E(:,1);
     csvwrite('histo_1D.csv',LAP_1D);

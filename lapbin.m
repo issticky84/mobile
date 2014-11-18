@@ -27,8 +27,8 @@ function [E,V] = lapbin(DATA,lodim,nn,step,stepsbtwnreport,opts)
 %
 
 if nargin < 3, nn = 10;end
-if nargin < 4, step=128;end
-if nargin < 5, stepsbtwnreport=5;end
+if nargin < 4, step = 128;end
+if nargin < 5, stepsbtwnreport = 5;end
 if nargin < 6,
   opts.tol = 1e-9;
   opts.maxit = 200;

@@ -1,6 +1,6 @@
 function draw_rect_9() %use PCA_3D to compute RGB(correct) ; don't sort the bins ; use LAP_1D for position x
     k = 25;    
-    file_name = 'BigData_20140330_0006';
+    file_name = 'BigData_20140328_2356';
     folder_name = strcat(file_name,'');
     %folder_name = file_name;
     %mkdir(folder_name);
@@ -15,9 +15,11 @@ function draw_rect_9() %use PCA_3D to compute RGB(correct) ; don't sort the bins
     
     img_mat = zeros(350,9000,3);  
 
-    transMatrix = histo_position(cluster_center_mat,histo_mat,k); %MDS_1D
+    %transMatrix = histo_position(cluster_center_mat,histo_mat,k); %MDS_1D
     %transMatrix = histo_position_LAB(lab_mat,histo_mat,k); 
-    %transMatrix = histo_position_LAPSIM(cluster_center_mat,histo_mat,k); %LAP_1D
+    %transMatrix = histo_position_LAPBIN(cluster_center_mat,histo_mat,k); %LAP_1D
+    transMatrix = histo_position_LAPBIN_kNNMAsk(cluster_center_mat,histo_mat,k);
+    %transMatrix = histo_position_LAPSIM_kNNMAsk(cluster_center_mat,histo_mat,k);
     csvwrite('output/transMatrix.csv',transMatrix);
     %transMatrix(:) = transMatrix(:) * 100000000000000;
     min_transMatrix = min(transMatrix);
@@ -108,25 +110,3 @@ function draw_rect_9() %use PCA_3D to compute RGB(correct) ; don't sort the bins
     %axis image
     %axis xy
 end
-
-
-function figScroll(src,evnt)
-  if evnt.VerticalScrollCount > 0 
-     xd = get(h,'XData');
-     inc = xd(end)/20;
-     x = [0:.1:xd(end)+inc];
-     re_eval(x)
-  elseif evnt.VerticalScrollCount < 0 
-     xd = get(h,'XData');
-     inc = xd(end)/20;
-     x = [0:.1:xd(end)-inc+.1]; % Don't let xd = 0
-     re_eval(x)
-  end
-end %figScroll
-
-function re_eval(x)
-  y = 4.*cos(x)./(x+2);
-  set(h,'YData',y,'XData',x)
-  set(a,'XLim',[0 x(end)])
-  drawnow
-end % re_eval

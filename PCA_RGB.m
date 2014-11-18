@@ -4,6 +4,7 @@ function matrix = PCA_RGB(mat)
     %mat = mat';
     [eigenVector,score,eigenvalue,tsquare] = princomp(mat); 
     %cumsum(eigenvalue)./sum(eigenvalue)
+    %eigenvalue
     k = 3;
     transMatrix(:,1:k) = eigenVector(:,1:k);
     matrix = mat * transMatrix;

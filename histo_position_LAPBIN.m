@@ -1,4 +1,4 @@
-function MDS_1D = histo_position(cluster_center,histo_mat,k)
+function LAP_1D = histo_position_LAPBIN(cluster_center,histo_mat,k)
     cluster_center_distance = zeros(k,k);
     for i=1:k
         for j=1:k
@@ -9,7 +9,7 @@ function MDS_1D = histo_position(cluster_center,histo_mat,k)
             end
         end
     end
-    disp(cluster_center_distance);
+    %disp(cluster_center_distance);
     total_distance = sum(sum(cluster_center_distance));
     w(k) = 0;
     for i=1:k
@@ -18,7 +18,7 @@ function MDS_1D = histo_position(cluster_center,histo_mat,k)
     for i=1:k
         w(i) = w(i) / total_distance;
     end
-    disp(w);
+    %disp(w);
     
     time_step = size(histo_mat,1);
     histo_coefficient = zeros(time_step,time_step);
@@ -29,8 +29,13 @@ function MDS_1D = histo_position(cluster_center,histo_mat,k)
            end
        end
     end
+       
     %csvwrite('histo_coeff.csv',histo_coefficient);
-    [Y,eigvals] = cmdscale(histo_coefficient);
-    MDS_1D = Y(:,1);
-    csvwrite('histo_1D.csv',MDS_1D);
+    %[Y,eigvals] = cmdscale(histo_coefficient);
+    %MDS_1D = Y(:,1);
+    %[E,V] = lapbin(histo_coefficient,1);
+    [E,V] = lapbin(histo_coefficient,1,10);
+    %[E,V] = lapheat(histo_coefficient,1);
+    LAP_1D = E(:,1);
+    csvwrite('histo_1D.csv',LAP_1D);
 end

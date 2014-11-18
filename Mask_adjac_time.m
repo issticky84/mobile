@@ -1,4 +1,4 @@
-function W = adjac_time (DATA, nn,step,stepsbtwnreport)
+function W = Mask_adjac_time (n, nn)
   
 % ADJAC Make sparse adjacency matrix based on nearest neigbors in Euclidean space
 % 
@@ -25,32 +25,24 @@ if nargin < 2, nn = 10;end
 if nargin < 3, step=128;end
 if nargin < 4, stepsbtwnreport=5;end
   
-n=size(DATA,1);
-W=sparse(n,n);
+%n=size(DATA,1);
+%W=sparse(n,n);
+W = zeros(n);
 
 k_2 = nn/2; %nn/2
-vect_temp1 = 1:1:k_2;
-vect_temp2 = k_2:-1:1;
-vect_weight = horzcat(vect_temp1,vect_temp2);
+%vect_weight = horzcat(vect_temp1,vect_temp2);
 for i=1:n
-    %if(i>=6 && i<=(n-5))
-        vect = i-2:1:i+2;
-        vect(3) = [];
+    vect = i-k_2:1:i+k_2;
+    if i<=k_2  
+          W(i,1:k_2+i) = 1;
+    else
         for k=1:length(vect);
-           if(vect(k) == -100) 
-               continue;
-           end
-           if(vect(k)<=0 || vect(k)>n)
-               vect(k) = -100;
-           end
-        end
-        for k=1:length(vect)
-            if(vect(k) == -100) 
-                continue;
+            if vect(k)>0 & vect(k)<=n
+                W(i,vect(k)) = 1;
             end
-            W(i,vect(k)) = 1*vect_weight(k);
         end
-    %end
+    end
+    W(i,i) = 0;
 end
 
 

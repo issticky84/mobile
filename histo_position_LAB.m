@@ -31,6 +31,7 @@ function MDS_1D = histo_position_LAB(lab_mat,histo_mat,k) %change "cluster cente
     end
     %csvwrite('histo_coeff.csv',histo_coefficient);
     [Y,eigvals] = cmdscale(histo_coefficient);
+    size(Y)
     MDS_1D = Y(:,1);
     csvwrite('histo_1D.csv',MDS_1D);
 end
