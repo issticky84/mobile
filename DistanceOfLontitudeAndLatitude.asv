@@ -1,0 +1,20 @@
+function d = DistanceOfLontitudeAndLatitude(lon1,lon2,lat1,lat2)
+    R = 6371; % km
+    theta1 = degtorad(lat1);
+    theta2 = degtorad(lat2);
+    delta_theta = degtorad(lat2-lat1);
+    delta_lamda = degtorad(lon2-lon1);
+    a = sin(delta_theta
+% var R = 6371; // km
+% var £p1 = lat1.toRadians();
+% var £p2 = lat2.toRadians();
+% var £G£p = (lat2-lat1).toRadians();
+% var £G£f = (lon2-lon1).toRadians();
+% 
+% var a = Math.sin(£G£p/2) * Math.sin(£G£p/2) +
+%         Math.cos(£p1) * Math.cos(£p2) *
+%         Math.sin(£G£f/2) * Math.sin(£G£f/2);
+% var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+% 
+% var d = R * c;   
+end

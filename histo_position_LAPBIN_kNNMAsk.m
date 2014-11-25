@@ -1,4 +1,4 @@
-function LAP_1D = histo_position_LAPBIN_kNNMAsk(cluster_center,histo_mat,k)
+function LAP_1D = histo_position_LAPBIN_kNNMAsk(cluster_center,histo_mat,k,Knn)
     cluster_center_distance = zeros(k,k);
     for i=1:k
         for j=1:k
@@ -30,9 +30,9 @@ function LAP_1D = histo_position_LAPBIN_kNNMAsk(cluster_center,histo_mat,k)
        end
     end
     
-    Knn = 8;
+    %Knn = 8;
     N = size(histo_coefficient,1);
-    W = Mask_adjac_time (N, Knn);
+    W = Mask_adjac_time(N, Knn);
     for i=1:time_step
        for j=1:time_step
            if W(i,j)==0

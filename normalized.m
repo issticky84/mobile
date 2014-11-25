@@ -6,6 +6,6 @@ function [Nmat] = normalized(Imat)
         %Nmat(:) = 0;
         Nmat = zeros(1,mat_size);
     else
-        Nmat = Imat/max(abs(Imat(:)));
+        Nmat = Imat./max(abs(Imat(:)));
     end
 end

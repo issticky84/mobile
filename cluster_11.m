@@ -1,9 +1,9 @@
 function cluster_11()
 
-tic; %time start
+tic %time start
 
-k = 25;
-file_name = 'BigData_20140319_2213';
+k = 100;
+file_name = 'BigData_20141121_0723';
 folder_name = strcat(file_name,'');
 mkdir(folder_name);
 
@@ -31,7 +31,8 @@ file_raw_data_3D = file_strcat(file_raw_data_3D,k);
 output = read_sensor_file(file_csv);
 fprintf('1\n');
 cell_row = size(output,1);
-title = [4 5 6 7 8 9 10 11 12 13 20 21 27 31]; 
+%title = [4 5 6 7 8 9 10 11 12 13 20 21 27 31];  %for old file 
+title = [4 5 6 7 8 9 10 11 12 13 20 21 28 32];  %for new file (Satellites in range)
 title_num = length(title); %title_num = 14
 %%%%%%%%%%%%%%%%%%%%%% save data in matrix %%%%%%%%%%%%%%%%%%%%%%%%%
 %[AllMat] = matrix_assignment(output,cell_row,title_num,title);
@@ -44,8 +45,8 @@ fprintf('2\n');
 %[Idx] = kmeans(AllMat,k,'dist','sqEuclidean','rep',4);
 csvwrite(file_center,C);
 csvwrite(file_tag,Idx);
-csvwrite('sumd.csv',sumd);
-csvwrite('D.csv',D);
+%csvwrite('sumd.csv',sumd);
+%csvwrite('D.csv',D);
 fprintf('3\n');
 %%%%%%%%%%%%%%%%%%% Histogram Voting %%%%%%%%%%%%%%%%%%%%
 Tmat = read_csv(file_tag); %read tag_mat so that K-means clustering result stay fixed
@@ -61,8 +62,6 @@ raw_data_3D = normalized_data(raw_data_3D);
 csvwrite(file_raw_data_3D,raw_data_3D);
 fprintf('4\n');
 
-t = toc; %time end
-disp(t);
-
+toc %time end
 
 end %end of function

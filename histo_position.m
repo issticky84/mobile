@@ -30,7 +30,6 @@ function MDS_1D = histo_position(cluster_center,histo_mat,k)
        end
     end
     %csvwrite('histo_coeff.csv',histo_coefficient);
-    size(histo_coefficient)
     [Y,eigvals] = cmdscale(histo_coefficient);
     %cumsum(eigvals)./sum(eigvals)
     MDS_1D = Y(:,1);
