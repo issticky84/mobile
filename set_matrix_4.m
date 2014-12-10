@@ -69,7 +69,7 @@ timeMat = zeros(cell_row,1);
     ImgMat = zeros(cell_row,size(OutMat,2));
     ImgMat(:,:,1) = OutMat(:,:);
     %# Create the gaussian filter with hsize = [5 5] and sigma = 2
-    G = fspecial('gaussian',[3 3],2);
+    G = fspecial('gaussian',[5 5],2);
     %# Filter it
     Ig = imfilter(ImgMat,G,'same'); 
     OutMat2(:,:) = Ig(:,:,1);
@@ -78,9 +78,9 @@ timeMat = zeros(cell_row,1);
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %OutMat2 = OutMat(:,1:10);
     for i=1:cell_row
-     OutMat2(i,1) = norm(OutMat(i,1:3));  
-     OutMat2(i,2) = norm(OutMat(i,4:6));  
-     OutMat2(i,3) = norm(OutMat(i,7:9));  
+     OutMat2(i,1) = norm(OutMat2(i,1:3));  
+     OutMat2(i,2) = norm(OutMat2(i,4:6));  
+     OutMat2(i,3) = norm(OutMat2(i,7:9));  
     end
     
     OutMat2(:,4:9) = [];
@@ -90,7 +90,7 @@ timeMat = zeros(cell_row,1);
         if i==size(OutMat2,2)
             OutMat2(:,i) = OutMat(:,10); %give "longitude & latitude" larger weighting
             OutMat2(:,i) = normalized_mat(OutMat2(:,i));
-            OutMat2(:,i) = OutMat2(:,i) * 1.0;
+            OutMat2(:,i) = OutMat2(:,i) * 5.0;
         end
     end
     

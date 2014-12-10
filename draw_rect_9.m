@@ -1,5 +1,5 @@
 function draw_rect_9() %use PCA_3D to compute RGB(correct) ; don't sort the bins ; use LAP_1D for position x
-    k = 25;    
+    k = 100;    
     file_name = 'BigData_20141121_2315';
     %folder_name = strcat(file_name,'_location_norm_gaussian');
     folder_name = strcat(file_name,'_location_gaussian_norm'); 

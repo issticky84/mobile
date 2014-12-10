@@ -2,7 +2,7 @@ function cluster_12() % add location(latitude) & location(longitude)
 
 tic %time start
 
-k = 25;
+k = 100;
 file_name = 'BigData_20141121_2315';
 %folder_name = strcat(file_name,'_location_norm_gaussian');
 folder_name = strcat(file_name,'_location_gaussian_norm');
