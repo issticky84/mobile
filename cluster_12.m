@@ -2,9 +2,10 @@ function cluster_12() % add location(latitude) & location(longitude)
 
 tic %time start
 
-k = 100;
-file_name = 'BigData_20141121_0723';
-folder_name = strcat(file_name,'');
+k = 25;
+file_name = 'BigData_20141121_2315';
+%folder_name = strcat(file_name,'_location_norm_gaussian');
+folder_name = strcat(file_name,'_location_gaussian_norm');
 mkdir(folder_name);
 
 csv_name = '.csv';
@@ -27,13 +28,16 @@ output = read_sensor_file(file_csv);
 fprintf('1\n');
 cell_row = size(output,1);
 %title = [4 5 6 7 8 9 10 11 12 13 20 21 27 31];  %for old file 
-title = [4 5 6 7 8 9 10 11 12 13 20 21 22 23 28 32];  %for new file (Satellites in range)
+%title = [4 5 6 7 8 9 10 11 12 13 20 21 22 23 28 32];  %for new file (Satellites in range)
                                                       %22:latitude,23:longitude
+title = [4 5 6 7 8 9 10 11 12 22 23 32];    
+%title = [4 5 6 7 8 9 10 11 12 22 23 31];  %for new file (google-atitude,no voltage and so one)
 title_num = length(title); %title_num = 14
 %%%%%%%%%%%%%%%%%%%%%% save data in matrix %%%%%%%%%%%%%%%%%%%%%%%%%
 %[AllMat] = matrix_assignment(output,cell_row,title_num,title);
-[AllMat] = set_matrix_3(output,cell_row,title_num,title,file_time);
+[AllMat] = set_matrix_4(output,cell_row,title_num,title,file_time);
 
+csvwrite('AllMat.csv',AllMat);
 fprintf('2\n');
 %disp(AllMat);
 %%%%%%%%%%%%%%%%%%% K-means clustering %%%%%%%%%%%%%%%%%%%%
