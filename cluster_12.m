@@ -3,9 +3,12 @@ function cluster_12() % add location(latitude) & location(longitude)
 tic %time start
 
 k = 100;
-file_name = 'BigData_20141121_2315';
-%folder_name = strcat(file_name,'_location_norm_gaussian');
-folder_name = strcat(file_name,'_location_gaussian_norm');
+k_str = int2str(k);
+file_name = 'BigData_20141213_1350';
+folder_name = strcat(file_name,'_c');
+folder_name = strcat(folder_name,k_str);
+folder_name = strcat(folder_name,'_location_gaussian_norm');
+%folder_name = strcat(folder_name,'_location_norm_gaussian');
 mkdir(folder_name);
 
 csv_name = '.csv';
@@ -30,8 +33,8 @@ cell_row = size(output,1);
 %title = [4 5 6 7 8 9 10 11 12 13 20 21 27 31];  %for old file 
 %title = [4 5 6 7 8 9 10 11 12 13 20 21 22 23 28 32];  %for new file (Satellites in range)
                                                       %22:latitude,23:longitude
-title = [4 5 6 7 8 9 10 11 12 22 23 32];    
-%title = [4 5 6 7 8 9 10 11 12 22 23 31];  %for new file (google-atitude,no voltage and so one)
+%title = [4 5 6 7 8 9 10 11 12 22 23 32];    
+title = [4 5 6 7 8 9 10 11 12 22 23 31];  %for new file (google-atitude,no voltage and so one)
 title_num = length(title); %title_num = 14
 %%%%%%%%%%%%%%%%%%%%%% save data in matrix %%%%%%%%%%%%%%%%%%%%%%%%%
 %[AllMat] = matrix_assignment(output,cell_row,title_num,title);

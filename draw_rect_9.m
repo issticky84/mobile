@@ -1,8 +1,11 @@
 function draw_rect_9() %use PCA_3D to compute RGB(correct) ; don't sort the bins ; use LAP_1D for position x
-    k = 100;    
-    file_name = 'BigData_20141121_2315';
-    %folder_name = strcat(file_name,'_location_norm_gaussian');
-    folder_name = strcat(file_name,'_location_gaussian_norm'); 
+    k = 100;   
+    k_str = int2str(k);
+    file_name = 'BigData_20141213_1350';
+    folder_name = strcat(file_name,'_c');
+    folder_name = strcat(folder_name,k_str);
+    folder_name = strcat(folder_name,'_location_gaussian_norm');
+    %folder_name = strcat(folder_name,'_location_norm_gaussian'); 
     %folder_name = file_name;
     %mkdir(folder_name);
     
@@ -11,15 +14,27 @@ function draw_rect_9() %use PCA_3D to compute RGB(correct) ; don't sort the bins
     time_mat = read_csv( file_strcat( strcat( strcat(folder_name,'/time_'),file_name),k) );
     hour_file = file_strcat(strcat( strcat(folder_name,'/hour_'),file_name),k);
     RGB_file = file_strcat(strcat( strcat(folder_name,'/RGB_'),file_name),k);
+    LAB_file = file_strcat(strcat( strcat(folder_name,'/LAB_'),file_name),k);
     position_file = file_strcat(strcat( strcat(folder_name,'/position_'),file_name),k);    
     %lab_mat = read_csv( file_strcat(strcat( strcat(folder_name,'/LAB_raw_'),file_name),k) );
     
     img_mat = zeros(350,9000,3);  
 
-    transMatrix = histo_position(cluster_center_mat,histo_mat,k); %MDS_1D
+    %%%%%%%%%%%%%%%%%%% Compute RGB with PCA %%%%%%%%%%%%%%%%%%%%
+%     RGB_mat = PCA_RGB(cluster_center_mat);
+%     RGB_mat = normalized_data(RGB_mat);
+%     csvwrite(RGB_file,RGB_mat);
+    
+    RGB_mat = lab_transform_BinarySearch_convhull(cluster_center_mat);
+    csvwrite(LAB_file,RGB_mat);
+    
+    cluster_RGB_mat = cluster_RGB(k);%%%%%%%%%%%%%    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %transMatrix = histo_position(cluster_center_mat,histo_mat,k); %MDS_1D
+    transMatrix = histo_position_RGB(RGB_mat,histo_mat,k); 
     %transMatrix = histo_position_LAB(lab_mat,histo_mat,k); 
     %transMatrix = histo_position_LAPBIN(cluster_center_mat,histo_mat,k); %LAP_1D
-    %transMatrix = histo_position_LAPBIN_kNNMAsk(cluster_center_mat,histo_mat,k,6);
+    %transMatrix = histo_position_LAPBIN_kNNMAsk(cluster_center_mat,histo_mat,k,4);
     %transMatrix = histo_position_LAPSIM_kNNMAsk(cluster_center_mat,histo_mat,k);
     csvwrite('output/transMatrix.csv',transMatrix);
     %transMatrix(:) = transMatrix(:) * 100000000000000;
@@ -42,13 +57,7 @@ function draw_rect_9() %use PCA_3D to compute RGB(correct) ; don't sort the bins
         t = t + 600;
     end
     csvwrite(hour_file,hour_mat);
-    %%%%%%%%%%%%%%%%%%% Compute RGB with PCA %%%%%%%%%%%%%%%%%%%%
-    RGB_mat = PCA_RGB(cluster_center_mat);
-    %csvwrite('RGB_mat.csv',RGB_mat);
-    RGB_mat = normalized_data(RGB_mat);
-    csvwrite(RGB_file,RGB_mat);
 
-    %cluster_RGB_mat = cluster_RGB(k);%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%% Draw Rectangle %%%%%%%%%%%%%%%%%%%%%%%
     last_hour = 25;
     time_index = 1;

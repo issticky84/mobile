@@ -90,7 +90,7 @@ timeMat = zeros(cell_row,1);
         if i==size(OutMat2,2)
             OutMat2(:,i) = OutMat(:,10); %give "longitude & latitude" larger weighting
             OutMat2(:,i) = normalized_mat(OutMat2(:,i));
-            OutMat2(:,i) = OutMat2(:,i) * 5.0;
+            OutMat2(:,i) = OutMat2(:,i) * 1.0;
         end
     end
     

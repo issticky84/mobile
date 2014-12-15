@@ -1,5 +1,5 @@
 function draw_cluster_color()
-    cluster_RGB_mat = read_csv('adjusted_RGB_mat.csv');
+    cluster_RGB_mat = read_csv('BigData_20141123_1243_c50_location_gaussian_norm/RGB_BigData_20141123_1243_c50.csv');
     k = 25;
     img_mat = zeros(k,1,3);
     for i=1:k
